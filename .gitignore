@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints
+data/db/*
+!data/db/.gitkeep
+outputs/*/*.png
+outputs/*/*.joblib
+outputs/*/*.txt
+*.log
+.DS_Store
+venv/
+env/
+.vscode/
+.idea/
