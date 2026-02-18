@@ -18,7 +18,7 @@ from utils.ml_helper import IrisMLHelper
 
 # Configuration
 st.set_page_config(page_title="Iris Classification", page_icon="🌸", layout="wide")
-
+'''
 @st.cache_data
 def load_data_from_mongodb():
     """Charge les données depuis sklearn (TEST)"""
@@ -34,6 +34,28 @@ def load_data_from_mongodb():
     df['model'] = None
     
     return df
+'''
+def load_data_from_mongodb():
+    """Charge les données depuis MongoDB Atlas"""
+    mongo = MongoHelper()
+    documents = list(mongo.collection.find())
+    
+    records = []
+    for doc in documents:
+        records.append({
+            'sepal_length': doc['features']['sepal_length'],
+            'sepal_width': doc['features']['sepal_width'],
+            'petal_length': doc['features']['petal_length'],
+            'petal_width': doc['features']['petal_width'],
+            'species': doc['species'],
+            'prediction': doc.get('prediction', None),
+            'confidence': doc.get('confidence', None),
+            'model': doc.get('model', None)
+        })
+    
+    mongo.close()
+    return pd.DataFrame(records)
+
 
 @st.cache_resource
 def load_model():
