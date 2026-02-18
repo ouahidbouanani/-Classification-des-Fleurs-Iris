@@ -18,23 +18,23 @@ from utils.ml_helper import IrisMLHelper
 
 # Configuration
 st.set_page_config(page_title="Iris Classification", page_icon="🌸", layout="wide")
-'''
-@st.cache_data
-def load_data_from_mongodb():
-    """Charge les données depuis sklearn (TEST)"""
-    from sklearn.datasets import load_iris
+
+#@st.cache_data
+#def load_data_from_mongodb():
+ #   """Charge les données depuis sklearn (TEST)"""
+  #  from sklearn.datasets import load_iris
     
-    iris = load_iris()
-    df = pd.DataFrame(iris.data, 
-                      columns=['sepal_length','sepal_width','petal_length','petal_width'])
-    df['species'] = pd.Categorical.from_codes(iris.target, 
-                                               ['setosa','versicolor','virginica'])
-    df['prediction'] = None
-    df['confidence'] = None
-    df['model'] = None
+   # iris = load_iris()
+   # df = pd.DataFrame(iris.data, 
+   #                   columns=['sepal_length','sepal_width','petal_length','petal_width'])
+   # df['species'] = pd.Categorical.from_codes(iris.target, 
+   #                                            ['setosa','versicolor','virginica'])
+   # df['prediction'] = None
+   # df['confidence'] = None
+   # df['model'] = None
     
-    return df
-'''
+   # return df
+
 def load_data_from_mongodb():
     """Charge les données depuis MongoDB Atlas"""
     mongo = MongoHelper()
