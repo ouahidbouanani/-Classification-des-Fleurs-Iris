@@ -21,25 +21,19 @@ st.set_page_config(page_title="Iris Classification", page_icon="🌸", layout="w
 
 @st.cache_data
 def load_data_from_mongodb():
-    """Charge les données depuis MongoDB Atlas"""
-    mongo = MongoHelper()
-    documents = list(mongo.collection.find())
+    """Charge les données depuis sklearn (TEST)"""
+    from sklearn.datasets import load_iris
     
-    records = []
-    for doc in documents:
-        records.append({
-            'sepal_length': doc['features']['sepal_length'],
-            'sepal_width': doc['features']['sepal_width'],
-            'petal_length': doc['features']['petal_length'],
-            'petal_width': doc['features']['petal_width'],
-            'species': doc['species'],
-            'prediction': doc.get('prediction', None),
-            'confidence': doc.get('confidence', None),
-            'model': doc.get('model', None)
-        })
+    iris = load_iris()
+    df = pd.DataFrame(iris.data, 
+                      columns=['sepal_length','sepal_width','petal_length','petal_width'])
+    df['species'] = pd.Categorical.from_codes(iris.target, 
+                                               ['setosa','versicolor','virginica'])
+    df['prediction'] = None
+    df['confidence'] = None
+    df['model'] = None
     
-    mongo.close()
-    return pd.DataFrame(records)
+    return df
 
 @st.cache_resource
 def load_model():
